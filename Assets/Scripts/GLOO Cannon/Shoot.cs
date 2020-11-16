@@ -7,21 +7,35 @@ public class Shoot : MonoBehaviour
     [SerializeField] GameObject blob; //the bullet
     [SerializeField] Transform barrel; //barrelend
     public float forcePower = 200;
+    public float maxAmmo = 36;
+    
+    public float GLOOcounter = 0;
+
+    private void Awake()
+    {
+        GLOOcounter = 0;
+    }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //shoot a gameobject called GlooBlob
-            GameObject blobHandler;
+            Debug.Log(GLOOcounter);
+            if (GLOOcounter < maxAmmo)
+            {
+                //shoot a gameobject called GlooBlob
+                GameObject blobHandler;
 
-            blobHandler = Instantiate(blob, barrel.position, barrel.rotation) as GameObject;
+                blobHandler = Instantiate(blob, barrel.position, barrel.rotation) as GameObject;
 
-            Rigidbody blobRB = blobHandler.GetComponent<Rigidbody>();
+                Rigidbody blobRB = blobHandler.GetComponent<Rigidbody>();
 
-            blobRB.AddForce(transform.forward * forcePower);
+                blobRB.AddForce(transform.forward * forcePower);
 
-            Destroy(blobHandler, 4f);
+                GLOOcounter++;
+
+                Destroy(blobHandler, 4f);
+            }
         }
     }
 }

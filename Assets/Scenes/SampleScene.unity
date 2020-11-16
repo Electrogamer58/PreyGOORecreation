@@ -150,7 +150,7 @@ Transform:
   m_Children:
   - {fileID: 1195293095}
   m_Father: {fileID: 1733551839}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &139720750
 GameObject:
@@ -425,6 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 667967783}
   - component: {fileID: 667967784}
+  - component: {fileID: 667967785}
   m_Layer: 0
   m_Name: GLOO_Cannon
   m_TagString: Untagged
@@ -464,6 +465,22 @@ MonoBehaviour:
   blob: {fileID: 4447389491803579957, guid: 6313cdf51d0fe0a42bafc30bca6bae58, type: 3}
   barrel: {fileID: 362479656}
   forcePower: 200
+  maxAmmo: 36
+  GLOOcounter: 0
+--- !u!114 &667967785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667967782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7834c2f7775949a796af722370f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shoot: {fileID: 667967784}
+  numCanisters: 0
 --- !u!1 &682457317
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,13 +836,15 @@ MonoBehaviour:
   _moveSpeed: 12
   _slowedSpeed: 2
   _sprintSpeed: 18
-  _gravity: -9.81
+  _gravity: -19.62
   _jumpHeight: 3
   groundCheck: {fileID: 553301912}
   _groundDistance: -0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 768
+  reload: {fileID: 667967785}
+  shoot: {fileID: 667967784}
   isGrounded: 0
 --- !u!143 &876243653
 CharacterController:
@@ -1594,6 +1613,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618006314}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1654827998 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 7783266644006578853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1733551838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,6 +1646,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1654827998}
   - {fileID: 39596035}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -2143,3 +2169,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b661aafd2713d7944b1cbfbf600f8922, type: 3}
+--- !u!1001 &7783266644006578853
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1733551839}
+    m_Modifications:
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.9417233
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.99565
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899771, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783266642435899775, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd,
+        type: 3}
+      propertyPath: m_Name
+      value: Canister
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9967202ea7d4bdf44bdbcfac76f3c8bd, type: 3}

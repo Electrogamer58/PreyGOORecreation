@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] GameObject glooBall;
-    public float forcePower = 200;
+    public float forcePower = 300;
     
     Rigidbody rb;
 

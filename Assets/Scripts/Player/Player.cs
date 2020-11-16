@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
     public float _groundDistance = -0.4f; //radius of sphere
     public LayerMask groundMask; //checks for collision with the floor specifically, in case it catches player collision first, which it will
 
+    [Header("Other Scripts")]
+    [SerializeField] Reload reload;
+    [SerializeField] Shoot shoot;
+
     Vector3 velocity;
     public bool isGrounded;
 
@@ -63,6 +67,16 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity); //force required to jump according to physics. (Square root of jump height x (-2) x gravity)
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag.Equals("GLOO Canister"))
+        {
+            reload.numCanisters += 1;
+            Debug.Log("Got Canister");
+            Destroy(other.gameObject, 0);
         }
     }
 }
