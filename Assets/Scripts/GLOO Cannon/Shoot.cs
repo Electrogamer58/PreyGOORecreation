@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour
 {
     [SerializeField] GameObject blob; //the bullet
     [SerializeField] Transform barrel; //barrelend
-    public float forcePower = 200;
+    public float forcePower = 400;
     public float maxAmmo = 36;
     
     public float GLOOcounter = 0;
