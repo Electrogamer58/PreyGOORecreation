@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [Header("Other Scripts")]
     [SerializeField] Reload reload;
     [SerializeField] Shoot shoot;
+    [SerializeField] AudioClip gained;
 
     Vector3 velocity;
     public bool isGrounded;
@@ -74,6 +75,7 @@ public class Player : MonoBehaviour
     {
         if (other.tag.Equals("GLOO Canister"))
         {
+            AudioSource.PlayClipAtPoint(gained, gameObject.transform.position);
             reload.numCanisters += 1;
             Debug.Log("Got Canister");
             Destroy(other.gameObject, 0);

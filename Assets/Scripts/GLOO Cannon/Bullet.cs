@@ -26,8 +26,10 @@ public class Bullet : MonoBehaviour
             Debug.Log("Hit Ground");
 
 
-            Instantiate(glooBall, gameObject.transform.position + new Vector3(0, -0.4f, 0), Quaternion.identity);
+            Instantiate(glooBall, gameObject.transform.position + new Vector3(0, -0.2f, 0), Quaternion.identity);
             Destroy(gameObject, 0);
+            Physics.IgnoreLayerCollision(9, 8);
+            
         }
         if (other.collider.gameObject.layer == 10)
         {
@@ -37,6 +39,13 @@ public class Bullet : MonoBehaviour
 
             Instantiate(glooBall, gameObject.transform.position + new Vector3(nudgeDirection.x * -0.9f, 0, nudgeDirection.z * -0.9f), Quaternion.identity);
             Destroy(gameObject, 0);
+            Physics.IgnoreLayerCollision(9, 10);
+        }
+        if (other.collider.gameObject.tag == "Hazard")
+        {
+            //Instantiate(glooBall, gameObject.transform.position + new Vector3(0, -0.2f, 0), Quaternion.identity);
+            ///Destroy(gameObject, 0);
+            other.collider.gameObject.SetActive(false);
         }
     }
 }

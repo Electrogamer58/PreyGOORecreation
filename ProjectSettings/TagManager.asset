@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GLOO Canister
   - Gloo
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - GLOO
   - Wall
   - Temporary
-  - 
+  - Player
   - 
   - 
   - 

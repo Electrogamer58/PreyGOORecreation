@@ -1,19 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
     [SerializeField] GameObject blob; //the bullet
+    [SerializeField] Text ammoView;
     [SerializeField] Transform barrel; //barrelend
+    [SerializeField] AudioClip shoot;
+    [SerializeField] Transform parentGun;
+
     public float forcePower = 400;
-    public float maxAmmo = 36;
-    
-    public float GLOOcounter = 0;
+    public int maxAmmo = 36;
+    public int GLOOcounter = 0;
+    public float shakeAmount = 1f;
+    public float shakeSpeed = 1f;
 
     private void Awake()
     {
-        GLOOcounter = 0;
+        GLOOcounter = maxAmmo;
+        
     }
 
     private void Update()
@@ -21,8 +28,14 @@ public class Shoot : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log(GLOOcounter);
-            if (GLOOcounter < maxAmmo)
+            if (GLOOcounter > 0)
             {
+                AudioSource.PlayClipAtPoint(shoot, gameObject.transform.position); //play sound
+                //StartCoroutine(ShakeGun(parentGun, 2, 1f));
+                //shake gun (or cam)
+                //StartCoroutine(Shake());
+                
+
                 //shoot a gameobject called GlooBlob
                 GameObject blobHandler;
 
@@ -32,10 +45,70 @@ public class Shoot : MonoBehaviour
 
                 blobRB.AddForce(transform.forward * forcePower);
 
-                GLOOcounter++;
+                GLOOcounter--;
+                ammoView.text = "Ammo: " + GLOOcounter;
 
                 Destroy(blobHandler, 4f);
             }
         }
     }
+
+
+    /*IEnumerator Shake()
+    {
+        float counter = 0;
+        float shakeDuration = 2;
+
+        while (counter < shakeDuration)
+        {
+            counter += Time.deltaTime;
+
+            float x = parentGun.position.x * Mathf.Sin(Time.time * shakeSpeed) * shakeAmount;
+            float y = parentGun.position.y;
+            float z = parentGun.position.z;
+            gameObject.transform.position = new Vector3(x, y, z);
+        }
+    }
+    */
+
+    /*
+    IEnumerator ShakeGun(GameObject objectToShake, float shakeDuration, float decreasePoint)
+    {
+
+        if (decreasePoint >= shakeDuration)
+        {
+            Debug.LogError("decreasePoint exeeded totalShakeDuration; Exiting");
+            yield break; //Exit!
+        }
+
+        Transform defaultTransform = objectToShake.transform;
+        Vector3 currentPos = defaultTransform.position;
+        Quaternion defaultRot = defaultTransform.rotation;
+
+        float counter = 0;
+        float shakeSpeed = 20f;
+
+        while (counter < shakeDuration)
+        {
+            counter += Time.deltaTime;
+            float decrSpeed = shakeSpeed;
+            defaultTransform.position = currentPos + Random.insideUnitSphere * decrSpeed;
+
+
+            if (counter >= decreasePoint)
+            {
+                counter = 0f;
+                while (counter <= decreasePoint)
+                {
+                    counter += Time.deltaTime;
+                    decrSpeed = Mathf.Lerp(shakeSpeed, 0, counter / decreasePoint);
+                    defaultTransform.position = currentPos + Random.insideUnitSphere * decrSpeed;
+                }
+                break;
+            }
+        }
+        defaultTransform.position = currentPos;
+
+    }
+    */
 }
