@@ -10,12 +10,16 @@ public class Shoot : MonoBehaviour
     [SerializeField] Transform barrel; //barrelend
     [SerializeField] AudioClip shoot;
     [SerializeField] Transform parentGun;
+    //[SerializeField] Animator animator;
+    //public AnimationClip shake;
 
     public float forcePower = 400;
     public int maxAmmo = 36;
     public int GLOOcounter = 0;
     public float shakeAmount = 1f;
     public float shakeSpeed = 1f;
+    float fireRate = 0.10f;
+    public float nextFire = 0.05f;
 
     private void Awake()
     {
@@ -25,30 +29,41 @@ public class Shoot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
         {
+            
             Debug.Log(GLOOcounter);
             if (GLOOcounter > 0)
             {
-                AudioSource.PlayClipAtPoint(shoot, gameObject.transform.position); //play sound
-                //StartCoroutine(ShakeGun(parentGun, 2, 1f));
-                //shake gun (or cam)
-                //StartCoroutine(Shake());
-                
+                if (Time.time > nextFire)
+                {
+                    AudioSource.PlayClipAtPoint(shoot, gameObject.transform.position); //play sound
+                                                                                       //animation.clip = shake;
+                                                                                       //animation.Play();
+                                                                                       //animator.Play("Shake");
 
-                //shoot a gameobject called GlooBlob
-                GameObject blobHandler;
+                    //StartCoroutine(ShakeGun(parentGun, 2, 1f));
+                    //shake gun (or cam)
+                    //StartCoroutine(Shake());
 
-                blobHandler = Instantiate(blob, barrel.position, barrel.rotation) as GameObject;
 
-                Rigidbody blobRB = blobHandler.GetComponent<Rigidbody>();
+                    //shoot a gameobject called GlooBlob
+                    GameObject blobHandler;
 
-                blobRB.AddForce(transform.forward * forcePower);
+                    blobHandler = Instantiate(blob, barrel.position, barrel.rotation) as GameObject;
 
-                GLOOcounter--;
-                ammoView.text = "Ammo: " + GLOOcounter;
+                    Rigidbody blobRB = blobHandler.GetComponent<Rigidbody>();
 
-                Destroy(blobHandler, 4f);
+                    blobRB.AddForce(transform.forward * forcePower);
+
+                    GLOOcounter--;
+                    ammoView.text = "Ammo: " + GLOOcounter;
+                    nextFire = Time.time + fireRate;
+
+
+
+                    Destroy(blobHandler, 4f);
+                }
             }
         }
     }
